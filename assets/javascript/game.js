@@ -16,6 +16,9 @@ var chosenCountryArray = [];
 //Create an array for the incomplete word that the user is guessing
 var correctGuesses = [];
 
+//Create a string of the correct guesses array to display to the user
+var correctGuessesString = "";
+
 //Create variables to store the guesses remaining, wins, and losses
 var guessesRemaining = 10;
 var wins = 0;
@@ -53,22 +56,41 @@ var setUpNewGame = function () {
     }
     console.log("Chosen Word Array:" + chosenCountryArray);
 }
-var game = "";
+
 // Set the inner HTML contents of the #game div to our html string
 var updateHTML = function () {
+
+    // Update the game parameters
     game =
-        "<p> Current Word: " + correctGuesses + "</p>" +
+        "<div id='current-country'> </div>" +
         "<p> Letters Guessed: " + incorrectGuesses + "</p>" +
         "<p> Guesses Remaining: " + guessesRemaining + "</p>" +
         "<p> Wins: " + wins + "</p>" +
         "<p> Losses: " + losses + "</p>";
 
+    //Set the html to the updated game parameters
     document.querySelector("#game").innerHTML = game;
+
+    //Clear the current country guessing progress
+    $("#current-country").empty();
+
+    //Update the current country guessing progress
+    for (var i = 0; i < correctGuesses.length; i++) {
+        var node = document.createElement('div');
+        if (correctGuesses[i] === " ") {
+            node.className = "space";
+        } else {
+            node.className = "correct-guess";
+        }
+        var textnode = document.createTextNode(correctGuesses[i]);
+        node.appendChild(textnode);
+        document.querySelector("#current-country").appendChild(node);
+    }
 }
 
 //Wait until the document has loaded before starting the game
 $(document).ready(function () {
-    
+
     //Initial game reset
     setUpNewGame();
     updateHTML();
@@ -95,6 +117,9 @@ $(document).ready(function () {
                         correctGuesses[i] = chosenCountryArray[i];
                     }
                 }
+
+
+
                 updateHTML();
 
                 //If the user wins, reset the game
@@ -124,10 +149,11 @@ $(document).ready(function () {
 
         updateHTML();
 
-        console.log("Chosen Word Array: " + chosenCountryArray);
+        console.log("Chosen Country Array: " + chosenCountryArray);
         console.log("Letters Remaining: " + lettersRemaining);
         console.log("Letters Guessed: " + incorrectGuesses);
         console.log("Correct Guesses: " + correctGuesses);
+        console.log("Correct Guesses Array: " + correctGuessesString);
         console.log("Guesses Remaining: " + guessesRemaining);
     }
 })

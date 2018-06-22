@@ -1,5 +1,21 @@
 .jumbotron {
-    
+
     background: white;
 
+}
+.correct-guess {
+    font-size: 2rem;
+    float: left;
+    margin: 10px;
+}
+.space {
+    /* margin: 400px; */
+    /* padding:50px; */
+    margin: 20px;
+    clear: right;
+    float: left;
+    color: pink;
+}
+#game{
+    clear:left;
 }
