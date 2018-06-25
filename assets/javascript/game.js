@@ -128,14 +128,14 @@ $(document).ready(function () {
                     }
                 }
                 updateHTML();
-
-                //If the user wins, reset the game
-                if (correctGuesses.indexOf("_") < 0) {
-                    alert("Well done! You correctly guessed " + chosenCountry + "!");
-                    wins++;
-                    setUpNewGame();
-                }
             }
+            //If the user wins, reset the game
+            if (correctGuesses.indexOf("_") < 0) {
+                alert("Well done! You correctly guessed " + chosenCountry + "!");
+                wins++;
+                setUpNewGame();
+            }
+
 
             //If the user guessed incorrectly
             else {
