@@ -7,9 +7,8 @@ var lettersRemaining = []
 //Create an array of letters that the user has already guessed
 var incorrectGuesses = [];
 
-//Create a variable to store the chosen word
+//Creates variables to store the chosen word and previous chosen country
 var chosenCountry = "";
-
 var previousCountry;
 
 //Create an array to store the letters of the chosen word
@@ -28,14 +27,20 @@ var losses = 0;
 
 //Function to set up a new game
 var setUpNewGame = function () {
+
+    //Reset arrays so they can be correctly filled
     lettersRemaining = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     incorrectGuesses.length = 0;
     chosenCountryArray.length = 0;
     correctGuesses.length = 0;
     guessesRemaining = 10;
+
+    //If this is not the first round, display a link to the previous county
     if (chosenCountry != "") {
         previousCountry = chosenCountry;
-        var html = "<p> Previous destination: <a target='_blank' href='https://www.google.com/search?q=" + previousCountry + "'>" + previousCountry + "</a><p>";
+        var html =
+            "<p> The previous destination was <a target='_blank' href='https://www.google.com/search?q=" + previousCountry + "'>" + previousCountry + ". </p>" +
+            "<p><a target='_blank' href='https://www.google.com/maps/search/?api=1&query=" + chosenCountry + "'> Click here to map it! </a><p>";
         document.querySelector("#previous-country").innerHTML = html;
     }
 
@@ -44,9 +49,7 @@ var setUpNewGame = function () {
 
     //Choose a word from the list
     chosenCountry = countryList[randomNumber];
-
-    console.log("Chosen Word: " + chosenCountry);
-    console.log("Word Length: " + chosenCountry.length);
+    console.log("Chosen Country: " + chosenCountry);
 
     //Place the chosen word into an array with each letter occupying one index
     for (var i = 0; i < chosenCountry.length; i++) {
@@ -61,22 +64,19 @@ var setUpNewGame = function () {
             correctGuesses[i] = " ";
         }
     }
-    console.log("Chosen Word Array:" + chosenCountryArray);
+    console.log("Chosen Country Array: " + chosenCountryArray);
 }
 
 // Set the inner HTML contents of the #game div to our html string
 var updateHTML = function () {
 
-    // Update the game parameters
+    //Update the game parameters
     game =
         "<div id='current-country'> </div>" +
         "<p> Incorrect Guesses: <span class = 'incorrect-guesses'>" + incorrectGuesses + "</span></p>" +
         "<p> Strikes Remaining: " + guessesRemaining + "</p>" +
         "<p> Wins: " + wins + "</p>" +
         "<p> Losses: " + losses + "</p>"
-        // "<p> Previous destination: <a target='_blank' href='https://www.google.com/search?q=" + previousCountry + "'>" + previousCountry + "</a><p>" +
-        // "<p><a target='_blank' href='https://www.google.com/maps/search/?api=1&query=" + chosenCountry + "'>" + chosenCountry + "</a></p>" + 
-        // "<p><a target='_blank' href='https://www.google.com/search?q=" + chosenCountry + "'>" + chosenCountry + "</a></p>"
 
     //Set the html to the updated game parameters
     document.querySelector("#game").innerHTML = game;
@@ -127,16 +127,12 @@ $(document).ready(function () {
                         correctGuesses[i] = chosenCountryArray[i];
                     }
                 }
-
-
-
                 updateHTML();
 
                 //If the user wins, reset the game
                 if (correctGuesses.indexOf("_") < 0) {
                     alert("Well done! You correctly guessed " + chosenCountry + "!");
                     wins++;
-
                     setUpNewGame();
                 }
             }
