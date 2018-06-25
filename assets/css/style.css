@@ -1,16 +1,33 @@
+body {
+    background-image: url(../images/world_flags_by_condottiero.png);
+    /* width: 100%; */
+    background-size: 100%;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+a:hover {
+    color: rgb(99, 99, 99);
+    text-decoration: none;
+}
 .jumbotron {
-
-    background: white;
-
+    background: rgba(255, 255, 255, 0.95);
+    size: 100%;
+    padding: 30px;
+}
+.btn {
+    margin-bottom: 10px;
 }
 .correct-guess {
-    font-size: 2rem;
+    font-size: 2.5rem;
     float: left;
     margin: 10px;
 }
+.incorrect-guesses {
+    color: red;
+}
 .space {
-    /* margin: 400px; */
-    /* padding:50px; */
     margin: 20px;
     clear: right;
     float: left;
@@ -18,4 +35,9 @@
 }
 #game{
     clear:left;
+}
+#flags-map {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
 }

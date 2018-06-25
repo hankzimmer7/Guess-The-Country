@@ -8,7 +8,9 @@ var lettersRemaining = []
 var incorrectGuesses = [];
 
 //Create a variable to store the chosen word
-var chosenCountry;
+var chosenCountry = "";
+
+var previousCountry;
 
 //Create an array to store the letters of the chosen word
 var chosenCountryArray = [];
@@ -31,6 +33,11 @@ var setUpNewGame = function () {
     chosenCountryArray.length = 0;
     correctGuesses.length = 0;
     guessesRemaining = 10;
+    if (chosenCountry != "") {
+        previousCountry = chosenCountry;
+        var html = "<p> Previous destination: <a target='_blank' href='https://www.google.com/search?q=" + previousCountry + "'>" + previousCountry + "</a><p>";
+        document.querySelector("#previous-country").innerHTML = html;
+    }
 
     // Generate a random number
     var randomNumber = Math.floor(Math.random() * countryList.length);
@@ -63,10 +70,13 @@ var updateHTML = function () {
     // Update the game parameters
     game =
         "<div id='current-country'> </div>" +
-        "<p> Letters Guessed: " + incorrectGuesses + "</p>" +
-        "<p> Guesses Remaining: " + guessesRemaining + "</p>" +
+        "<p> Incorrect Guesses: <span class = 'incorrect-guesses'>" + incorrectGuesses + "</span></p>" +
+        "<p> Strikes Remaining: " + guessesRemaining + "</p>" +
         "<p> Wins: " + wins + "</p>" +
-        "<p> Losses: " + losses + "</p>";
+        "<p> Losses: " + losses + "</p>"
+        // "<p> Previous destination: <a target='_blank' href='https://www.google.com/search?q=" + previousCountry + "'>" + previousCountry + "</a><p>" +
+        // "<p><a target='_blank' href='https://www.google.com/maps/search/?api=1&query=" + chosenCountry + "'>" + chosenCountry + "</a></p>" + 
+        // "<p><a target='_blank' href='https://www.google.com/search?q=" + chosenCountry + "'>" + chosenCountry + "</a></p>"
 
     //Set the html to the updated game parameters
     document.querySelector("#game").innerHTML = game;
@@ -126,6 +136,7 @@ $(document).ready(function () {
                 if (correctGuesses.indexOf("_") < 0) {
                     alert("Well done! You correctly guessed " + chosenCountry + "!");
                     wins++;
+
                     setUpNewGame();
                 }
             }
