@@ -1,4 +1,4 @@
-# Country-Guess-Game
+# Country Guessing Game
 
 ## Description
 
