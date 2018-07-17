@@ -1,4 +1,6 @@
-# Country Guessing Game
+# Guess The Country
+
+Deployed at https://hankzimmer7.github.io/Guess-The-Country/
 
 ## Description
 
